@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+
+<div class="d-flex justify-content-between">
+
+    <div class="col-5">
+
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+
+                    {% if exercise.photo1 %}
+                    <img src="{{ exercise.photo1.url }}" class="d-block w-100" alt="...">
+                    {% else %}
+                    <img src="https://sun9-3.userapi.com/impg/b0ZpBcbg14TslFdWBGDD_ULZTRlLZJ4_B-Vt7g/EjRXswxlx3U.jpg?size=504x409&quality=95&sign=900a37d76077d60cf32e7b64dee8d70d&c_uniq_tag=6QpNf3vPbBXVYMtWlFcJJeQO4yf21ZGK9Ty7E3ZvKB0&type=album"
+                         class="d-block w-100" alt="...">
+                    {% endif %}
+
+                </div>
+                <div class="carousel-item">
+
+                    {% if exercise.photo2 %}
+                    <img src="{{ exercise.photo2.url }}" class="d-block w-100" alt="...">
+                    {% else %}
+                    <img src="https://sun9-3.userapi.com/impg/b0ZpBcbg14TslFdWBGDD_ULZTRlLZJ4_B-Vt7g/EjRXswxlx3U.jpg?size=504x409&quality=95&sign=900a37d76077d60cf32e7b64dee8d70d&c_uniq_tag=6QpNf3vPbBXVYMtWlFcJJeQO4yf21ZGK9Ty7E3ZvKB0&type=album"
+                         class="d-block w-100" alt="...">
+                    {% endif %}
+
+                </div>
+                <div class="carousel-item">
+
+                    {% if exercise.photo3 %}
+                    <img src="{{ exercise.photo3.url }}" class="d-block w-100" alt="...">
+                    {% else %}
+                    <img src="https://sun9-3.userapi.com/impg/b0ZpBcbg14TslFdWBGDD_ULZTRlLZJ4_B-Vt7g/EjRXswxlx3U.jpg?size=504x409&quality=95&sign=900a37d76077d60cf32e7b64dee8d70d&c_uniq_tag=6QpNf3vPbBXVYMtWlFcJJeQO4yf21ZGK9Ty7E3ZvKB0&type=album"
+                         class="d-block w-100" alt="...">
+                    {% endif %}
+
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Следующий</span>
+            </button>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center p-4">
+                <img src="{{ exercise.author.profile.get_photo }}" alt="" height="50" width="50" class="rounded-circle">
+                <h4 class="mx-2 text-light">Автор:<a href="{% url 'profile' exercise.author.pk %}">{{ exercise.author }}</a></h4>
+
+
+            </div>
+
+        </div>
+
+        <div class="d-grid gap-2" style="margin-top: 20px">
+
+            <a href="{% url 'index' %}" class="btn btn-primary fs-6" type="button">Вернуться на главную</a>
+            {% if request.user == exercise.author %}
+            <a href="{% url 'update' exercise.pk %}" class="btn btn-primary fs-6" type="button">Изменить</a>
+            <a href="{% url 'delete' exercise.pk %}" class="btn btn-danger fs-6" type="button">Удалить</a>
+            {% endif %}
+
+<!--            <a href="" class="btn btn-primary" type="button">Смотреть видео</a>-->
+        </div>
+
+
+        <div class="card shadow-0 border mt-4" style="background-color: #f0f2f5;">
+            {% if request.user.is_authenticated %}
+            <form action="{% url 'save_comment' exercise.pk %}" method="post">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+
+                <button class="btn btn-secondary rounded" type="submit">оставить ком</button>
+
+
+
+            </form>
+            {% else %}
+            <h5>Что бы оставить коммент <a href="{% url 'login' %}">Войдите</a> в Аккаунт</h5>
+            {% endif %}
+        </div>
+
+
+        {% for comment in comments %}
+        <div class="card mb-4 mt-4">
+            <div class="card-body">
+                <p>{{ comment.user.username }}</p>
+
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                        <img src="{{ exercise.author.profile.get_photo }}" alt="avatar" width="25"
+                             height="25"/>
+                        <p class="small mb-0 ms-2">{{ comment.text }}</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+    <div class="col-6">
+
+        <div class="card bg-dark text-light">
+
+            <div class="card-body">
+                <h5 class="card-title text-danger fs-4 fw-bold">{{ exercise.title }}</h5>
+                <p class="card-text">{{ exercise.content }}</p>
+
+            </div>
+        </div>
+
+
+        <div class="card bg-dark text-light" style="margin-top: 20px">
+            <h5 class="card-header text-danger fs-4 fw-bold">Техника выполнения</h5>
+            <div class="card-body">
+                <p class="card-text">{{ exercise.content_full }}</p>
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+{% endblock main %}

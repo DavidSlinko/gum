@@ -1,0 +1,31 @@
+
+
+<div class="col-md-6 mb-3 mt-3">
+    <div class="card mb-3" style="max-width: 450px;">
+        <div class="row g-0">
+            <div class="col-md-12">
+
+                {% if exercise.photo1 %}
+                <img src="{{ exercise.photo1.url }}" class="card-img-top"
+                     style="width: 100%; height: 300px; object-fit: cover;" alt="...">
+                {% else %}
+                <img src="https://sun9-3.userapi.com/impg/b0ZpBcbg14TslFdWBGDD_ULZTRlLZJ4_B-Vt7g/EjRXswxlx3U.jpg?size=504x409&quality=95&sign=900a37d76077d60cf32e7b64dee8d70d&c_uniq_tag=6QpNf3vPbBXVYMtWlFcJJeQO4yf21ZGK9Ty7E3ZvKB0&type=album"
+                     class="card-img-top" alt="...">
+                {% endif %}
+
+            </div>
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h5 class="card-title fs-5 fw-bold text-dark">{{ exercise.title }}</h5>
+                    <p class="card-text">{{ exercise.content|truncatechars:70}}</p>
+                    <a href="{% url 'gumfuel_detail' exercise.pk %}" class="btn btn-primary">Читать полностью</a>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--        КАРТОЧКИ       -->

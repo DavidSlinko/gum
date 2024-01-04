@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.2.96/css/materialdesignicons.min.css"
+      integrity="sha512-LX0YV/MWBEn2dwXCYgQHrpa9HJkwB+S+bnBpifSOTO1No27TqNMKYoAn6ff2FBh03THAzAiiCwQ+aPX+/Qt/Ow=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body pb-0">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <div class="text-center border-end">
+                                <img src="{{ profile.get_photo }}" class="img-fluid avatar-xxl rounded-circle" alt="">
+                                <h4 class="text-primary font-size-20 mt-3 mb-2">{{ profile.user.username }}</h4>
+
+                            </div>
+                        </div><!-- end col -->
+                        <div class="col-md-9">
+                            <div class="ms-3">
+                                <div>
+                                    <h4 class="card-title mb-2">Biography</h4>
+                                    <p class="mb-0 text-muted">{{ profile.about_me }}</p>
+                                </div>
+                                <div class="row my-4">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <p class="text-muted mb-2 fw-medium"><i
+                                                    class="mdi mdi-email-outline me-2"></i>{{ profile.user.email }}</p>
+                                            <p class="text-muted fw-medium mb-0"><i
+                                                    class="mdi mdi-phone-in-talk-outline me-2"></i>{{ profile.phone_number }}</p>
+                                        </div>
+                                    </div><!-- end col -->
+                                </div><!-- end row -->
+
+
+                                {% if profile.user == request.user%}
+
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Изменить аккаунт
+                                </button>
+                                {% include 'gumfuel_page/components/_chg_account.html' %}
+
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                                    Изменить профиль
+                                </button>
+                                {% include 'gumfuel_page/components/_chg_profile.html' %}
+
+                                {% endif %}
+
+
+                            </div>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div>
+
+
+        <div class="col-4">
+            {% for exercise in exercises %}
+            <a href="{% url 'gumfuel_detail' exercise.pk %}">
+                <div class="card mt-4" style="width: 18rem;">
+                    <img src="{{ exercise.photo1.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">{{ exercise.title }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock main %}

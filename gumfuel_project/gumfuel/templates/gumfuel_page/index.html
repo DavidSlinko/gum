@@ -1,0 +1,51 @@
+{% extends 'base.html' %}    <!--   Базовый шаблон     -->
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}                         <!--   Наследуем контейнер с базового шаблона        -->
+
+
+<!------------------------------------------Подкатегории--------------------------------------------------------------->
+<!--<div class="d-flex justify-content-center">-->
+<!--    <div class="col-6">-->
+
+<!--        {% include 'gumfuel_page/components/_subcategories.html' %}-->
+
+<!--    </div>-->
+<!--</div>-->
+<!--------------------------------------------------------------------------------------------------------------------->
+
+<div class="d-flex justify-content-between">
+
+    <div class="col-2">
+        <div class="nav-scroller py-1 mb-8">
+            {% include 'gumfuel_page/components/_categories.html' %}   <!-- вызываем категории из папки _categories -->
+
+        </div>
+    </div>
+
+    <div class="col-9">
+        <div class="row">
+            {% for exercise in exercises %}                   <!--  цикл для карточек   -->
+            {% include 'gumfuel_page/components/_card.html' %}            <!-- Вызывавем карточки из папки _card -->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock main %}

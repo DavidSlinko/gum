@@ -1,0 +1,21 @@
+{% load gumfuel_tags %}    <!--  Подгружаем файл   -->
+{% get_categories as categories %}     <!--   Вызываем функцию    -->
+
+
+<nav class="nav nav-underline justify-content-between flex-column ">
+
+    <a class="nav-item nav-link link-body-light text-light btn btn-primary fs-7" href="{% url 'index'  %}">Все
+        упражнения</a>
+
+    {% for category in categories %}
+    <a class=" nav-link link-body-light text-light btn btn-primary fs-7 " href="{% url 'category' category.pk %}">
+        {{ category.title }}</a>
+    {% endfor %}
+
+
+</nav>
+
+
+<!-- nav-link link-body-light text-light btn btn-primary fs-7 -->
+
+<!--    КАТЕГОРИИ      -->

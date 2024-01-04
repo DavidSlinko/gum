@@ -1,0 +1,13 @@
+*{
+    text-decoration: none !important;
+    list-style: none;
+}
+
+
+body {
+    background: url(../images/bg_dark2.jpg) no-repeat;
+    background-size: cover;
+
+}
+
+
